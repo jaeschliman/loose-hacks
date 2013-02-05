@@ -2,9 +2,13 @@
 
 a selection of random stuff in CL. more to come. up here as a curiousity
 and to pressure me to develop it more :P
+none of these are fully baked.
 
-draw.lisp
+* draw.lisp
   copying vecto's api to work with nsviews in ccl+osx
 
-altform
+* altform
   altering ccl to have first-class syntax objects (sort of)
+
+* sock.lisp
+  serve a line-based function on a socket

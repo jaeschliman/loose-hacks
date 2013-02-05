@@ -17,11 +17,9 @@
 (dbind [([a b c] f) (value-for-key {:x '(x y z) } :x) ]
        [c b a f])
 
-;;;following failing with unknown variable x.
-;;;somewhere quoting semantics are probably getting messed up?
-;;;looks like in the let-form...goddamit.
+;;hooray, it works.
 #+ (or) (dbind [([a b c] f) (value-for-key {:x '[x y z] } :x) ]
                [c b a f])
-;;;strangely, this one /works/ ...
+
 #+(or) (dbind [([a b c] f) (value-for-key {:x `[x y z] } :x) ]
                [c b a f])
