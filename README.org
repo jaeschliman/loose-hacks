@@ -1,0 +1,10 @@
+#+TITLE: random crap
+
+a selection of random stuff in CL. more to come. up here as a curiousity
+and to pressure me to develop it more :P
+
+draw.lisp
+  copying vecto's api to work with nsviews in ccl+osx
+
+altform
+  altering ccl to have first-class syntax objects (sort of)
