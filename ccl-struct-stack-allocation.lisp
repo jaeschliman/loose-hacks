@@ -111,7 +111,51 @@ Mon May 26 11:39:41 PDT 2014
   (with-test-struct (s :a 'one :b 'two :c 'three)
     (format t " the struct is ~A~%" s)))
 
+(defmethod get-stuff ((self test-struct))
+  (declare (ignore self))
+  ;; (list (test-struct-a self)
+  ;;       (test-struct-b self)
+  ;;       (test-struct-c self))
+  )
 
+(defun test-print2 (a b c)
+  (with-test-struct (s :a a :b b :c c)
+    (get-stuff s)))
+
+(defun test-print3 (a b c)
+  (declare (optimize (speed 3)
+                     (safety 0)))
+  (get-stuff (make-test-struct :a a :b b :c c)))
+
+(defmacro time-n (n form)
+  `(time (loop repeat ,n do ,form)))
+
+
+#|
+
+CL-USER> (time-n 100000 (test-print2 1 2 3))
+(LOOP REPEAT 100000 DO (TEST-PRINT2 1 2 3))
+took 3,881 microseconds (0.003881 seconds) to run.
+During that period, and with 8 available CPU cores,
+     3,882 microseconds (0.003882 seconds) were spent in user mode
+         3 microseconds (0.000003 seconds) were spent in system mode
+NIL
+
+CL-USER> (time-n 100000 (test-print3 1 2 3))
+(LOOP REPEAT 100000 DO (TEST-PRINT3 1 2 3))
+took 5,806 microseconds (0.005806 seconds) to run.
+     1,091 microseconds (0.001091 seconds, 18.79%) of which was spent in GC.
+During that period, and with 8 available CPU cores,
+     5,347 microseconds (0.005347 seconds) were spent in user mode
+       634 microseconds (0.000634 seconds) were spent in system mode
+ 4,800,000 bytes of memory allocated.
+NIL
+
+|#
+
+
+
+;;; test-print
 #|
 ;; "home:ex;cl;loose-hacks;ccl-struct-stack-allocation.lisp.newest":2699-2811
 L0
